@@ -1,17 +1,17 @@
 export class Http {
-	public segment: string;
+	private segment: string;
 
 
 	/**
-	 * @param {string}
+	 * @param {string} path
 	 */
 	public constructor(
 		public path: string
 	) {}
 
 	/**
-	 * @param  {boolean   = true}
-	 * @param  {object}
+	 * @param  {boolean   = true} cors
+	 * @param  {object} opts
 	 * @return {Promise<any>}
 	 */
 	public async get(cors: boolean = true, opts?: object): Promise<any> {
@@ -20,9 +20,9 @@ export class Http {
 	}
 
 	/**
-	 * @param  {object}
-	 * @param  {boolean   = true}
-	 * @param  {object}
+	 * @param  {object} data
+	 * @param  {boolean   = true} cors
+	 * @param  {object} opts
 	 * @return {Promise<any>}
 	 */
 	public async post(data: object, cors: boolean = true, opts?: object): Promise<any>{
@@ -31,9 +31,9 @@ export class Http {
 	}
 
 	/**
-	 * @param  {object}
-	 * @param  {boolean   = true}
-	 * @param  {object}
+	 * @param  {object} data
+	 * @param  {boolean   = true} cors
+	 * @param  {object} opts
 	 * @return {Promise<any>}
 	 */
 	public async put(data: object, cors: boolean = true, opts?: object): Promise<any>{
@@ -42,19 +42,30 @@ export class Http {
 	}
 
 	/**
-	 * @param  {boolean   = true}
-	 * @param  {object}
+	 * @param  {boolean   = true} cors
+	 * @param  {object} opts
 	 * @return {Promise<any>}
 	 */
-	public async delete( cors: boolean = true, opts?: object): Promise<any>{
+	public async delete(cors: boolean = true, opts?: object): Promise<any>{
 		let res = await this.exec("delete", cors, undefined, opts);
 		return res;
 	}
 
 	/**
-	 * @param  {string}
-	 * @param  {boolean}
-	 * @param  {object}
+	 * @param {string} segment
+	 */
+	public seg(segment: string) {
+		if(segment[0] !== "/") {
+			segment = "/" + segment
+		}
+
+		this.segment = segment;
+	}
+
+	/**
+	 * @param  {string} method
+	 * @param  {boolean} cors
+	 * @param  {object} data
 	 * @return {Promise<any>}
 	 */
 	private async exec(method: string, cors: boolean, data?: object, opts?: object): Promise<any> {
