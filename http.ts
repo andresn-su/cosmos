@@ -1,4 +1,7 @@
 export class Http {
+	public segment: string;
+
+
 	/**
 	 * @param {string}
 	 */
@@ -68,6 +71,6 @@ export class Http {
 			};
 		}
 
-		return await fetch(this.path, options).then(res => res.json());
+		return await fetch((this.path + this.segment), options).then(res => res.json());
 	}
 }
